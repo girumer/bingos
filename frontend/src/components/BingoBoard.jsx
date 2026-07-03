@@ -5,7 +5,6 @@ import cartela from "./cartela.json";
 import socket from "../socket";
 import { toast, ToastContainer } from "react-toastify";
 
-// Determine prefix letter for a number
 function getBingoLetter(num) {
   if (num >= 1 && num <= 15) return "B";
   if (num >= 16 && num <= 30) return "I";
@@ -15,7 +14,6 @@ function getBingoLetter(num) {
   return "";
 }
 
-// My Cartelas Section - MODIFIED to display in horizontal scrollable container
 function MyCartelasSection({
   myCartelas,
   selectedIndexes,
@@ -25,9 +23,7 @@ function MyCartelasSection({
   highlightCartelas,
   allCalledNumbers 
 }) {
-  if (!myCartelas || myCartelas.length === 0) {
-    return <div className="no-cartelas-message">No cartelas selected</div>;
-  }
+  if (!myCartelas || myCartelas.length === 0) return null;
 
   const renderCartela = (cartelaItem, idx) => {
     const cartelaIndex =
@@ -87,7 +83,7 @@ function MyCartelasSection({
           })}
         </div>
 
-        <div className="cartela-index">card number {cartelaIndex + 1}</div>
+        <div className="cartela-index">card number {cartelaIndex+1}</div>
 
         <button className="bingo-button" onClick={() => toast.error("u click wrong pattern")}>
           Bingo
@@ -97,7 +93,7 @@ function MyCartelasSection({
   };
 
   return (
-    <div className="my-cartelas-wrapper">
+    <div className="my-cartelas" style={{ width: "100%" }}>
       <div className="cartelas-container-horizontal">
         {myCartelas.map((c, idx) => renderCartela(c, idx))}
       </div>
@@ -116,82 +112,10 @@ function MyCartelasSection({
   );
 }
 
-// NUMBERS GRID COMPONENT - NEW
-function NumbersGrid({
-  allCalledNumbers,
-  lastNumber,
-  highlightedNumbers,
-  highlightCartelas,
-  setHighlightCartelas,
-  refreshpg,
-  timer,
-  letters,
-  numberColumns,
-  getBingoLetter
-}) {
-  return (
-    <div className="numbers-grid-container">
-      <div className="grid-controls">
-        <div className="toggle-container">
-          <span className="toggle-label">AUTO SELECT</span>
-          <label className="toggle-switch">
-            <input
-              type="checkbox"
-              checked={highlightCartelas}
-              onChange={() => setHighlightCartelas(!highlightCartelas)}
-            />
-            <span className="toggle-slider"></span>
-          </label>
-          <div className="stat-button1" onClick={refreshpg}>REFRESH</div>
-        </div>
-        {timer !== null && timer > 0 && (
-          <div className="timer-display">⏱️ {timer}s</div>
-        )}
-      </div>
-
-      {lastNumber !== null && (
-        <div className="last-called-container">
-          <div className={`last-called-number ${getBingoLetter(lastNumber).toLowerCase()}`}>
-            <span className="last-called-letter">{getBingoLetter(lastNumber)}-</span>
-            {lastNumber}
-          </div>
-        </div>
-      )}
-
-      <div className="last-five-display">
-        {allCalledNumbers.slice(-5).map((num, idx) => (
-          <div key={idx} className={`last-five-number ${getBingoLetter(num).toLowerCase()}`}>
-            <span className="last-five-letter">{getBingoLetter(num)}-</span>
-            {num}
-          </div>
-        ))}
-      </div>
-
-      <div className="numbers-grid">
-        {letters.map((letter, colIndex) => (
-          <div key={letter} className="number-column">
-            <div className="column-header">{letter}</div>
-            {numberColumns[colIndex].map((num) => (
-              <button
-                key={num}
-                className={`number-cell ${highlightedNumbers.includes(num) ? "called" : ""}`}
-                disabled
-              >
-                {num}
-              </button>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function BingoBoard() {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
   const usernameFromState = location.state?.username;
   const roomIdFromState = location.state?.roomId;
   const telegramIdFromState = location.state?.telegramId;
@@ -199,15 +123,12 @@ function BingoBoard() {
   const roomIdFromUrl = searchParams.get("roomId");
   const telegramIdFromUrl = searchParams.get("telegramId");
   const stakeFromUrl = Number(searchParams.get("stake")) || 0;
-  
   const username = usernameFromState || usernameFromUrl;
   const roomId = roomIdFromState || roomIdFromUrl;
   const telegramId = telegramIdFromState || telegramIdFromUrl;
   const stake = location.state?.stake || stakeFromUrl;
-  
   const storedCartelas = JSON.parse(localStorage.getItem("myCartelas") || "[]");
   const { myCartelas: initialCartelas } = location.state || {};
-
   const [totalPlayers, setTotalPlayers] = useState(0);
   const [gameId, setGameId] = useState(null);
   const [highlightCartelas, setHighlightCartelas] = useState(true);
@@ -249,7 +170,6 @@ function BingoBoard() {
       prev.includes(num) ? prev.filter((n) => n !== num) : [...prev, num]
     );
   };
-
   const refreshpg = () => {
     window.location.reload();
   };
@@ -279,6 +199,7 @@ function BingoBoard() {
       setTimeout(() => navigate("/"), 2000);
       return;
     }
+    
     localStorage.setItem("username", username);
     localStorage.setItem("telegramId", telegramId);
   }, [username, telegramId, navigate]);
@@ -318,10 +239,10 @@ function BingoBoard() {
 
   useEffect(() => {
     const handleGameStarted = ({ totalAward, totalPlayers, gameId }) => {
-      setTotalAward(totalAward);
-      setTotalPlayers(totalPlayers);
-      setGameId(gameId);
-      toast.success(`Game started! Game ID: ${gameId}`);
+        setTotalAward(totalAward);
+        setTotalPlayers(totalPlayers);
+        setGameId(gameId);
+        toast.success(`Game started! Game ID: ${gameId}`);
     };
     socket.on("gameStarted", handleGameStarted);
     return () => socket.off("gameStarted", handleGameStarted);
@@ -365,56 +286,94 @@ function BingoBoard() {
 
   return (
     <div className="bingo-board-wrapper">
-      {/* TOP STATS - UNCHANGED */}
+      {/* TOP STATS */}
       <div className="top-stats">
-        <div className="stat-button">
-          GameID {gameId || "Waiting..."}
-        </div>
+         <div className="stat-button">
+            GameID {gameId || "Waiting..."}
+          </div>
         <div className="stat-button">
           💰 Prize{" "}
           {totalAward !== null ? totalAward.toLocaleString() + " ETB" : "Loading..."}
         </div>
+   
         <div className="stat-button">👥 Players {totalPlayers}</div>
         <div className="stat-button">🔢 {allCalledNumbers.length}/75</div>
       </div>
 
-      {/* MAIN CONTENT - Side by side layout */}
-      <div className="main-content">
-        {/* LEFT SIDE - Numbers Grid */}
-        <div className="left-panel">
-          <NumbersGrid
-            allCalledNumbers={allCalledNumbers}
-            lastNumber={lastNumber}
-            highlightedNumbers={highlightedNumbers}
-            highlightCartelas={highlightCartelas}
-            setHighlightCartelas={setHighlightCartelas}
-            refreshpg={refreshpg}
-            timer={timer}
-            letters={letters}
-            numberColumns={numberColumns}
-            getBingoLetter={getBingoLetter}
-          />
+      {/* CORE DESKTOP AND MOBILE CONTENT SPLIT */}
+      <div className="main-content-layout">
+        
+        {/* LEFT SIDE: FIXED 1 TO 75 GRID SYSTEM */}
+        <div className="numbers-grid-wrapper">
+          {letters.map((letter, rowIndex) => (
+            <div key={letter} className="number-column-group">
+              <div className="letter-button">{letter}</div>
+              {numberColumns[rowIndex].map((num) => (
+                <button
+                  key={num}
+                  className={`number-button ${highlightedNumbers.includes(num) ? "called" : ""}`}
+                  disabled
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
+          ))}
         </div>
 
-        {/* RIGHT SIDE - Cartelas */}
-        <div className="right-panel">
-          <div className="cartelas-header">
-            <span>My Cartelas ({myCartelas.length})</span>
-            {myCartelas.length > 1 && <span className="scroll-hint">← Swipe →</span>}
+        {/* RIGHT SIDE: INTERACTIVE PANEL AND SLIDING CARDS CONTAINER */}
+        <div className="bottom-panels">
+          <div className="toggle-container">
+            <span className="toggle-label">AUTO SELECT</span>
+            <label className="toggle-switch">
+              <input
+                type="checkbox"
+                checked={highlightCartelas}
+                onChange={() => setHighlightCartelas(!highlightCartelas)}
+              />
+              <span className="toggle-slider"></span>
+            </label>
+            <div className="stat-button1" onClick={refreshpg}>REFRESH</div>
           </div>
-          <MyCartelasSection
-            myCartelas={myCartelas}
-            selectedIndexes={selectedIndexes}
-            clickedNumbers={clickedNumbers}
-            toggleNumber={toggleNumber}
-            winners={winners}
-            highlightCartelas={highlightCartelas}
-            allCalledNumbers={allCalledNumbers}
-          />
+
+          <div className="last-called-container">
+            {lastNumber !== null && (
+              <div className="last-called-number">
+                <span className="last-called-letter" data-letter={getBingoLetter(lastNumber)}>
+                  {getBingoLetter(lastNumber)}-
+                </span>
+                {lastNumber}
+              </div>
+            )}
+
+            <div className="last-five-display">
+              {allCalledNumbers.slice(-5).map((num, idx) => (
+                <div key={idx} className={`last-five-number ${getBingoLetter(num).toLowerCase()}`}>
+                  <span className="last-five-letter">{getBingoLetter(num)}-</span>
+                  {num}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bottom-left">
+            <div className={`cartelas-container-horizontal ${myCartelas.length === 1 ? "single-cartela" : ""}`}>
+              <MyCartelasSection
+                myCartelas={myCartelas}
+                selectedIndexes={selectedIndexes}
+                clickedNumbers={clickedNumbers}
+                toggleNumber={toggleNumber}
+                winners={winners}
+                highlightCartelas={highlightCartelas}
+                allCalledNumbers={allCalledNumbers} 
+              />
+            </div>
+          </div>
         </div>
+
       </div>
 
-      {/* WINNER POPUP - UNCHANGED */}
+      {/* WINNER POPUP */}
       {showPopup && (
         <div className="winner-popup">
           <h2>{iAmWinner ? "🎉 You won! 🎉" : "Winner(s)!"}</h2>
@@ -422,7 +381,6 @@ function BingoBoard() {
             {winners.map((w, idx) => {
               const winnerCartela = cartela[w.cartelaIndex];
               if (!winnerCartela) return null;
-
               const pattern = w.pattern;
 
               return (
@@ -461,7 +419,7 @@ function BingoBoard() {
                   </div>
 
                   <div className="cartela-index">
-                    Cartela {w.cartelaIndex + 1} - {w.winnerName}
+                      Cartela {w.cartelaIndex + 1} - {w.winnerName}
                   </div>
                 </div>
               );
@@ -469,6 +427,7 @@ function BingoBoard() {
           </div>
         </div>
       )}
+
     </div>
   );
 }
