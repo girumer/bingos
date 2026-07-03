@@ -301,86 +301,87 @@ function BingoBoard() {
       </div>
 
       {/* CORE DESKTOP AND MOBILE CONTENT SPLIT */}
-      <div className="main-content-layout">
-        
-        {/* LEFT SIDE: FIXED 1 TO 75 GRID SYSTEM (LIGHT, HIGH VISIBILITY BACKGROUND) */}
-       {/* LEFT SIDE: FIXED 1 TO 75 GRID SYSTEM */}
-<div className="numbers-grid-wrapper">
-  {letters.map((letter, rowIndex) => (
-    <div key={letter} className="number-column-group">
-      <div className="letter-button">{letter}</div>
-      {numberColumns[rowIndex].map((num) => (
-        <button
-          key={num}
-          className={`number-button ${highlightedNumbers.includes(num) ? "called" : ""}`}
-          disabled
-        >
-          {num}
-        </button>
+    <div className="main-content-layout">
+  
+  {/* LEFT COLUMN: 1 TO 75 GRID SYSTEM + UTILITY PANEL */}
+  <div className="left-column-layout">
+    <div className="numbers-grid-wrapper">
+      {letters.map((letter, rowIndex) => (
+        <div key={letter} className="number-column-group">
+          <div className="letter-button">{letter}</div>
+          {numberColumns[rowIndex].map((num) => (
+            <button
+              key={num}
+              className={`number-button ${highlightedNumbers.includes(num) ? "called" : ""}`}
+              disabled
+            >
+              {num}
+            </button>
+          ))}
+        </div>
       ))}
     </div>
-  ))}
-</div>
 
-        {/* RIGHT SIDE: CONTROLS (FIXED) AND SCROLLING CARTELAS */}
-        <div className="bottom-panels">
-          
-          {/* LATCHED CONTROLLER SUB-GROUP (Will stay static at the top) */}
-          <div className="fixed-control-header">
-            <div className="toggle-container">
-              <span className="toggle-label">AUTO SELECT</span>
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  checked={highlightCartelas}
-                  onChange={() => setHighlightCartelas(!highlightCartelas)}
-                />
-                <span className="toggle-slider"></span>
-              </label>
-              <div className="stat-button1" onClick={refreshpg}>REFRESH</div>
-            </div>
+    {/* CONTROL BAR MOVED DIRECTLY UNDER GRID */}
+    <div className="toggle-container">
+      <span className="toggle-label">AUTO SELECT</span>
+      <label className="toggle-switch">
+        <input
+          type="checkbox"
+          checked={highlightCartelas}
+          onChange={() => setHighlightCartelas(!highlightCartelas)}
+        />
+        <span className="toggle-slider"></span>
+      </label>
+      <div className="stat-button1" onClick={refreshpg}>REFRESH</div>
+    </div>
+  </div>
 
-            <div className="last-called-container">
-              {lastNumber !== null && (
-                <div className="last-called-number">
-                  <span className="last-called-letter" data-letter={getBingoLetter(lastNumber)}>
-                    {getBingoLetter(lastNumber)}-
-                  </span>
-                  {lastNumber}
-                </div>
-              )}
-
-              <div className="last-five-display">
-                {allCalledNumbers.slice(-5).map((num, idx) => (
-                  <div key={idx} className={`last-five-number ${getBingoLetter(num).toLowerCase()}`}>
-                    <span className="last-five-letter">{getBingoLetter(num)}-</span>
-                    {num}
-                  </div>
-                ))}
-              </div>
-            </div>
+  {/* RIGHT COLUMN: REARRANGED BALL BALL DISPLAY AND SCROLLING CARTELAS */}
+  <div className="bottom-panels">
+    
+    <div className="fixed-control-header">
+      <div className="last-called-container">
+        {lastNumber !== null && (
+          <div className="last-called-number">
+            <span className="last-called-letter" data-letter={getBingoLetter(lastNumber)}>
+              {getBingoLetter(lastNumber)}-
+            </span>
+            {lastNumber}
           </div>
+        )}
 
-          {/* INDEPENDENT INTERNAL VERTICAL SCROLL VIEWPORT FOR CARDS */}
-          <div className="scrollable-cards-viewport">
-            <div className="bottom-left">
-              <div className={`cartelas-container-horizontal ${myCartelas.length === 1 ? "single-cartela" : ""}`}>
-                <MyCartelasSection
-                  myCartelas={myCartelas}
-                  selectedIndexes={selectedIndexes}
-                  clickedNumbers={clickedNumbers}
-                  toggleNumber={toggleNumber}
-                  winners={winners}
-                  highlightCartelas={highlightCartelas}
-                  allCalledNumbers={allCalledNumbers} 
-                />
-              </div>
+        <div className="last-five-display">
+          {allCalledNumbers.slice(-5).map((num, idx) => (
+            <div key={idx} className={`last-five-number ${getBingoLetter(num).toLowerCase()}`}>
+              <span className="last-five-letter">{getBingoLetter(num)}-</span>
+              {num}
             </div>
-          </div>
-
+          ))}
         </div>
-
       </div>
+    </div>
+
+    {/* INDEPENDENT VERTICAL SCROLL VIEWPORT FOR CARDS */}
+    <div className="scrollable-cards-viewport">
+      <div className="bottom-left">
+        <div className={`cartelas-container-horizontal ${myCartelas.length === 1 ? "single-cartela" : ""}`}>
+          <MyCartelasSection
+            myCartelas={myCartelas}
+            selectedIndexes={selectedIndexes}
+            clickedNumbers={clickedNumbers}
+            toggleNumber={toggleNumber}
+            winners={winners}
+            highlightCartelas={highlightCartelas}
+            allCalledNumbers={allCalledNumbers} 
+          />
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
 
       {/* WINNER POPUP */}
       {showPopup && (

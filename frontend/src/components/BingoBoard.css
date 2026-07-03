@@ -1,3 +1,4 @@
+/* --- MAIN WRAPPER & CONTAINER LAYOUT --- */
 .bingo-board-wrapper {
   display: flex;
   flex-direction: column;
@@ -6,10 +7,107 @@
   background-color: #dbaff8a5; 
   gap: 5px;
   box-sizing: border-box;
-  overflow: hidden; /* Prevent body scrolling */
+  overflow: hidden; /* Prevent overall body scrolling */
 }
 
-/* Toggle Switch Styles */
+/* --- MAIN WORKSPACE SPLIT --- */
+.main-content-layout {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  overflow: hidden;
+  gap: 5px;
+}
+
+/* --- LEFT COLUMN PANEL FLOW --- */
+.left-column-layout {
+  flex: 0 0 54%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 100%;
+}
+
+/* --- LEFT SIDE: FIXED 1-75 GRID SYSTEM --- */
+.numbers-grid-wrapper {
+  flex: 1; /* Captures remaining vertical space dynamically above the controls */
+  display: flex;
+  flex-direction: row; 
+  align-items: stretch; /* Stretches columns to match container height */
+  justify-content: space-between;
+  padding: 8px 5px;
+  background-color: #dbaff8a5; 
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.number-column-group {
+  display: flex;
+  flex-direction: column; 
+  gap: 2px;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+
+.letter-button {
+  width: 26px; 
+  height: 26px;
+  background: #000000; 
+  color: #ffffff; 
+  border-radius: 4px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font-size: 13px; 
+  font-weight: 900;
+  margin-bottom: 2px;
+  flex-shrink: 0;
+}
+
+.number-button {
+  width: 28px; 
+  flex: 1; /* Stretches row items down to scale evenly */
+  max-height: 32px; 
+  background: rgba(255, 255, 255, 0.95); 
+  border: 1px solid rgba(0, 0, 0, 0.15); 
+  border-radius: 4px; 
+  display: flex;
+  color: #1e293b; 
+  align-items: center; 
+  justify-content: center;
+  font-size: 12px; 
+  font-weight: bold;
+  opacity: 1 !important; 
+}
+
+.number-button.called { 
+  background: #2563eb; 
+  color: #ffffff !important; 
+  border-color: #1d4ed8;
+  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.4);
+}
+
+/* --- INTEGRATED CONTROLS CONTAINER UNDER GRID --- */
+.left-column-layout .toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.12); 
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.toggle-label { 
+  font-size: 14px; 
+  font-weight: 500; 
+  color: #ffffff; 
+}
+
+/* Toggle Switch Handles */
 .toggle-switch {
   position: relative;
   display: inline-block;
@@ -38,149 +136,7 @@
 input:checked + .toggle-slider { background-color: #4CAF50; }
 input:checked + .toggle-slider:before { transform: translateX(26px); }
 
-.toggle-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  background-color: rgba(0, 0, 0, 0.12); 
-  border-radius: 8px;
-  width: 100%;
-  box-sizing: border-box;
-}
-.toggle-label { font-size: 14px; font-weight: 500; color: #ffffff; }
-
-/* Winner popup */
-.winner-popup {
-  position: fixed;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ece3e3;
-  color: white;
-  padding: 15px;
-  border-radius: 10px;
-  z-index: 1000;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  max-width: 90%;
-}
-
-/* Winner styles */
-.cartela-cell.highlighted { background-color: rgb(92, 134, 102); color: rgb(19, 14, 14); }
-.winner-highlight {
-  background-color: rgb(15, 139, 98) !important;
-  border: 3px solid rgb(20, 12, 17) !important;
-  color: rgb(12, 10, 10);
-  font-weight: bold !important;
-  transform: scale(1.1);
-}
-.winner-popup h2 { margin-bottom: 10px; }
-.winner-cartelas-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; color: #01060b; }
-.winner-cartela { min-width: 120px; color: white; flex: 1 0 auto; }
-
-/* --- TOP SECTION - 10% --- */
-.top-stats {
-  flex: 0 0 10%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 5px;
-  padding: 5px;
-  background: #ad99f7db;
-  color: black;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-.stat-button {
-  padding: 10px;
-  background: #ad99f7db;
-  border: 1px solid #efa8a8;
-  border-radius: 8px;
-  color: rgb(39, 35, 35);
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  min-width: 90px;
-}
-.stat-button1 {
-  background: #f74904de;
-  color: rgb(255, 254, 254);
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-/* --- MAIN WORKSPACE SPLIT --- */
-.main-content-layout {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  overflow: hidden;
-  gap: 5px;
-}
-
-/* --- LEFT SIDE: FIXED 1-75 GRID (STRETCHED VERTICALLY & MATCHING BACKGROUND) --- */
-.numbers-grid-wrapper {
-  flex: 0 0 54%; 
-  display: flex;
-  flex-direction: row; 
-  align-items: stretch; /* Forces vertical child columns to occupy full 100% height */
-  justify-content: space-between;
-  padding: 8px 5px;
-  background-color: #dbaff8a5; /* Matched backdrop exactly to the container wrap theme */
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.number-column-group {
-  display: flex;
-  flex-direction: column; 
-  gap: 2px;
-  align-items: center;
-  flex: 1;
-  height: 100%; /* Stretches column group container to the absolute base limit */
-}
-
-.letter-button {
-  width: 26px; 
-  height: 26px;
-  background: #000000; 
-  color: #ffffff; 
-  border-radius: 4px;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  font-size: 13px; 
-  font-weight: 900;
-  margin-bottom: 2px;
-  flex-shrink: 0; /* Keeps heading letter dimensions anchored uncompressed */
-}
-
-.number-button {
-  width: 28px; 
-  flex: 1; /* Automatically stretches height cleanly to cover the remaining space evenly */
-  max-height: 32px; /* Safety ceiling boundaries */
-  background: rgba(255, 255, 255, 0.95); /* Bright high-visibility buttons maintained */
-  border: 1px solid rgba(0, 0, 0, 0.15); 
-  border-radius: 4px; 
-  display: flex;
-  color: #1e293b; 
-  align-items: center; 
-  justify-content: center;
-  font-size: 12px; 
-  font-weight: bold;
-  opacity: 1 !important; 
-}
-.number-button.called { 
-  background: #2563eb; 
-  color: #ffffff !important; 
-  border-color: #1d4ed8;
-  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.4);
-}
-
-/* --- RIGHT SIDE: PANEL HOUSING FIXED HEADER AND SCROLL CONTAINER --- */
+/* --- RIGHT SIDE: CONTAINER & SCROLL CARDS PANEL --- */
 .bottom-panels {
   flex: 0 0 46%;
   display: flex;
@@ -195,8 +151,8 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   display: flex;
   flex-direction: column;
   gap: 5px;
-  background: rgba(0, 0, 0, 0.08);
-  padding: 6px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 4px;
   border-radius: 8px;
 }
 
@@ -285,10 +241,72 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
 .cartela-index { text-align: center; font-size: 11px; font-weight: 800; color: #64748b; margin-top: 4px; text-transform: uppercase; }
 .bingo-button { width: 100%; height: 32px; padding: 0; font-size: 13px; font-weight: bold; background: linear-gradient(135deg, #f67d05 0%, #d85400 100%); color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 4px; }
 
-/* --- MOBILE SPECIFICS --- */
+/* --- TOP GLOBAL DASHBOARD PANEL --- */
+.top-stats {
+  flex: 0 0 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+  background: #ad99f7db;
+  color: black;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.stat-button {
+  padding: 10px;
+  background: #ad99f7db;
+  border: 1px solid #efa8a8;
+  border-radius: 8px;
+  color: rgb(39, 35, 35);
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  min-width: 90px;
+}
+.stat-button1 {
+  background: #f74904de;
+  color: rgb(255, 254, 254);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* --- GAME WINNER POPUPS --- */
+.winner-popup {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ece3e3;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  z-index: 1000;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  max-width: 90%;
+}
+.cartela-cell.highlighted { background-color: rgb(92, 134, 102); color: rgb(19, 14, 14); }
+.winner-highlight {
+  background-color: rgb(15, 139, 98) !important;
+  border: 3px solid rgb(20, 12, 17) !important;
+  color: rgb(12, 10, 10);
+  font-weight: bold !important;
+  transform: scale(1.1);
+}
+.winner-popup h2 { margin-bottom: 10px; }
+.winner-cartelas-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; color: #01060b; }
+.winner-cartela { min-width: 120px; color: white; flex: 1 0 auto; }
+
+/* --- MOBILE SPECIFICS (Tecno Spark / Smartphones) --- */
 @media (max-width: 768px) {
-  .numbers-grid-wrapper {
+  .left-column-layout {
     flex: 0 0 54%;
+  }
+  .numbers-grid-wrapper {
     padding: 4px 2px;
   }
   .number-button { width: 22px; font-size: 10px; max-height: 24px; }

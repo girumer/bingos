@@ -333,7 +333,7 @@ function startInjectionMonitor(rId, initiatorClientId) {
             // Optionally force-start countdown if enough players have cartelas
             const playersWithCartela = Object.values(room.playerCartelas).filter(arr => arr.length > 0).length;
             if (!room.timer && playersWithCartela >= 2) {
-                startCountdown(rId, 30);
+                startCountdown(rId, 12);
             }
             return;
         }
