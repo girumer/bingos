@@ -171,7 +171,7 @@ function verifyTelegramInitData(initData, botToken) {
 // Define the players you want to inject
 // Define the players you want to inject
 const forcedPlayersData = [
-    { username: 'amanu', clientId: 'tg_amanu_fake' },
+/*{ username: 'amanu', clientId: 'tg_amanu_fake' },
     
     { username: 'soloman', clientId: '200003x' },
  
@@ -195,7 +195,7 @@ const forcedPlayersData = [
      {username: "tsegihshmuze",clientId: '200033x'},
      {username: "jemal_76545",clientId: '200032x'},
      {username: "kida_25133",clientId: '200031x'},
-     {username: "ali_987630",clientId: '200030x'},
+     {username: "ali_987630",clientId: '200030x'},*/
 
 
 
