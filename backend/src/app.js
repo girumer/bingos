@@ -56,11 +56,14 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:3000",
-      "http://localhost:3000",
       "http://167.235.140.218",
+      // Add these HTTPS versions:
+      "https://new.adeyebingo.com",
+      "https://adeyebingo.com",
+      "https://www.adeyebingo.com",
+      "https://api.adeyebingo.com",
+      // Keep HTTP versions too if needed:
       "http://adeyebingo.com",
-      "http://adeyebingo.com",
-      "http://www.adeyebingo.com",
       "http://www.adeyebingo.com",
       "http://api.adeyebingo.com"
     ],
@@ -78,12 +81,10 @@ const allowedOrigins = [
   'https://adeyebingo.com',
   'http://www.adeyebingo.com',
   'https://www.adeyebingo.com',
-  
-  // ADD THESE TWO LINES:
-  'http://api.adeyebingo.com',    // ← ADD THIS (HTTP)
-  'https://api.adeyebingo.com',   // ← YOU ALREADY HAVE THIS
-  
-  // ... rest of your origins
+  'http://api.adeyebingo.com',
+  'https://api.adeyebingo.com',
+  'https://new.adeyebingo.com',  // ← ADD THIS LINE
+  'http://new.adeyebingo.com',   // ← Also add HTTP version just in case
 ];
 app.use(cors({
   origin: function (origin, callback) {
