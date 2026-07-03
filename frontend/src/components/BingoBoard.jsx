@@ -304,22 +304,23 @@ function BingoBoard() {
       <div className="main-content-layout">
         
         {/* LEFT SIDE: FIXED 1 TO 75 GRID SYSTEM (LIGHT, HIGH VISIBILITY BACKGROUND) */}
-        <div className="numbers-grid-wrapper">
-          {letters.map((letter, rowIndex) => (
-            <div key={letter} className="number-column-group">
-              <div className="letter-button">{letter}</div>
-              {numberColumns[rowIndex].map((num) => (
-                <button
-                  key={num}
-                  className={`number-button ${highlightedNumbers.includes(num) ? "called" : ""}`}
-                  disabled
-                >
-                  {num}
-                </button>
-              ))}
-            </div>
-          ))}
-        </div>
+       {/* LEFT SIDE: FIXED 1 TO 75 GRID SYSTEM */}
+<div className="numbers-grid-wrapper">
+  {letters.map((letter, rowIndex) => (
+    <div key={letter} className="number-column-group">
+      <div className="letter-button">{letter}</div>
+      {numberColumns[rowIndex].map((num) => (
+        <button
+          key={num}
+          className={`number-button ${highlightedNumbers.includes(num) ? "called" : ""}`}
+          disabled
+        >
+          {num}
+        </button>
+      ))}
+    </div>
+  ))}
+</div>
 
         {/* RIGHT SIDE: CONTROLS (FIXED) AND SCROLLING CARTELAS */}
         <div className="bottom-panels">

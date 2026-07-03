@@ -6,7 +6,7 @@
   background-color: #dbaff8a5; 
   gap: 5px;
   box-sizing: border-box;
-  overflow: hidden; /* Lock main viewport to enforce sub-scrolling */
+  overflow: hidden; /* Prevent body scrolling */
 }
 
 /* Toggle Switch Styles */
@@ -43,12 +43,12 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   align-items: center;
   justify-content: center;
   padding: 8px;
-  background-color: rgba(0, 0, 0, 0.15); 
+  background-color: rgba(0, 0, 0, 0.12); 
   border-radius: 8px;
   width: 100%;
   box-sizing: border-box;
 }
-.toggle-label { font-size: 14px; font-weight: 500; color: #ffffff; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+.toggle-label { font-size: 14px; font-weight: 500; color: #ffffff; }
 
 /* Winner popup */
 .winner-popup {
@@ -121,47 +121,57 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   gap: 5px;
 }
 
-/* --- LEFT SIDE: FIXED LIGHT GRACEFUL MATRIX (56% PORTION) --- */
+/* --- LEFT SIDE: FIXED 1-75 GRID (STRETCHED VERTICALLY & MATCHING BACKGROUND) --- */
 .numbers-grid-wrapper {
-  flex: 0 0 56%; /* Increased size allocation to prevent horizontal cutoff */
+  flex: 0 0 54%; 
   display: flex;
   flex-direction: row; 
-  align-items: center;
+  align-items: stretch; /* Forces vertical child columns to occupy full 100% height */
   justify-content: space-between;
-  padding: 8px;
-  background-color: rgba(255, 255, 255, 0.82); /* Premium light matrix layer */
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
+  padding: 8px 5px;
+  background-color: #dbaff8a5; /* Matched backdrop exactly to the container wrap theme */
+  border-radius: 5px;
   box-sizing: border-box;
-  backdrop-filter: blur(5px);
 }
 
 .number-column-group {
   display: flex;
   flex-direction: column; 
-  gap: 3px;
+  gap: 2px;
   align-items: center;
   flex: 1;
+  height: 100%; /* Stretches column group container to the absolute base limit */
 }
 
 .letter-button {
-  width: 26px; height: 26px;
-  background: #000000; color: #ffffff; border-radius: 4px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 900;
-  margin-bottom: 4px;
+  width: 26px; 
+  height: 26px;
+  background: #000000; 
+  color: #ffffff; 
+  border-radius: 4px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font-size: 13px; 
+  font-weight: 900;
+  margin-bottom: 2px;
+  flex-shrink: 0; /* Keeps heading letter dimensions anchored uncompressed */
 }
 
 .number-button {
-  width: 28px; height: 28px; 
-  background: rgba(255, 255, 255, 0.95); /* Crisp bright button base */
+  width: 28px; 
+  flex: 1; /* Automatically stretches height cleanly to cover the remaining space evenly */
+  max-height: 32px; /* Safety ceiling boundaries */
+  background: rgba(255, 255, 255, 0.95); /* Bright high-visibility buttons maintained */
   border: 1px solid rgba(0, 0, 0, 0.15); 
   border-radius: 4px; 
   display: flex;
-  color: #1e293b; /* Pure dark reader contrast */
-  align-items: center; justify-content: center;
-  font-size: 12px; font-weight: bold;
-  opacity: 1 !important; /* Retain strong view contrast when disabled */
+  color: #1e293b; 
+  align-items: center; 
+  justify-content: center;
+  font-size: 12px; 
+  font-weight: bold;
+  opacity: 1 !important; 
 }
 .number-button.called { 
   background: #2563eb; 
@@ -170,23 +180,22 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   box-shadow: 0 2px 5px rgba(37, 99, 235, 0.4);
 }
 
-/* --- RIGHT SIDE: PANEL HOUSING FIXED HEADER AND SCROLL CONTAINER (44%) --- */
+/* --- RIGHT SIDE: PANEL HOUSING FIXED HEADER AND SCROLL CONTAINER --- */
 .bottom-panels {
-  flex: 0 0 44%;
+  flex: 0 0 46%;
   display: flex;
   flex-direction: column;
   background-color: #dbaff8a5; 
   gap: 5px;
   box-sizing: border-box;
-  overflow: hidden; /* Header components are frozen */
+  overflow: hidden;
 }
 
-/* Fixed utilities controller layout wrapper group */
 .fixed-control-header {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.08);
   padding: 6px;
   border-radius: 8px;
 }
@@ -205,7 +214,6 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   background: #070707; color: white;
   display: flex; align-items: center; justify-content: center;
   font-weight: bold; font-size: 14px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
 .last-five-display { display: flex; gap: 4px; }
@@ -220,10 +228,9 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
 .last-five-number.g { background: blue; }
 .last-five-number.o { background: brown; }
 
-/* --- ACTIVE INDEPENDENT CARDS VERTICAL VIEWPORT ENGINE --- */
 .scrollable-cards-viewport {
   flex: 1;
-  overflow-y: auto; /* Vertically scroll cards independently */
+  overflow-y: auto;
   padding-right: 2px;
 }
 .scrollable-cards-viewport::-webkit-scrollbar { width: 4px; }
@@ -234,7 +241,6 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   width: 100%;
 }
 
-/* --- Attractive Cards Stack --- */
 .cartelas-container-horizontal {
   display: flex;
   flex-direction: column; 
@@ -247,7 +253,7 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
 .cartela-display {
   width: 190px;
   height: auto;
-  border: 2px solid #a855f7; /* Elevated attractive violet trim profile */
+  border: 2px solid #a855f7; 
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -255,7 +261,6 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   background: #ffffff;
   padding: 6px;
   box-sizing: border-box;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 .cartela-header { display: flex; gap: 2px; margin-bottom: 2px; }
@@ -278,19 +283,19 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
 }
 .cartela-cell.clicked { background: #2ecc71; color: white; border-color: #27ae60; }
 .cartela-index { text-align: center; font-size: 11px; font-weight: 800; color: #64748b; margin-top: 4px; text-transform: uppercase; }
-.bingo-button { width: 100%; height: 32px; padding: 0; font-size: 13px; font-weight: bold; background: linear-gradient(135deg, #f67d05 0%, #d85400 100%); color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 4px; box-shadow: 0 2px 4px rgba(246,125,5,0.3); }
+.bingo-button { width: 100%; height: 32px; padding: 0; font-size: 13px; font-weight: bold; background: linear-gradient(135deg, #f67d05 0%, #d85400 100%); color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 4px; }
 
-/* --- MOBILE LANDSCAPE AND DISPLAY SIMULATORS (Tecno Spark 8P) --- */
+/* --- MOBILE SPECIFICS --- */
 @media (max-width: 768px) {
   .numbers-grid-wrapper {
-    flex: 0 0 55%;
-    padding: 4px;
+    flex: 0 0 54%;
+    padding: 4px 2px;
   }
-  .number-button { width: 20px; height: 20px; font-size: 9px; }
-  .letter-button { width: 20px; height: 20px; font-size: 10px; }
+  .number-button { width: 22px; font-size: 10px; max-height: 24px; }
+  .letter-button { width: 22px; height: 22px; font-size: 11px; }
 
   .bottom-panels {
-    flex: 0 0 45%;
+    flex: 0 0 46%;
   }
   .cartela-display { width: 100%; }
   .cartela-cell { height: 26px; font-size: 11px; }
