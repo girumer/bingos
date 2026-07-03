@@ -305,23 +305,32 @@ function BingoBoard() {
   
   {/* LEFT COLUMN: 1 TO 75 GRID SYSTEM + UTILITY PANEL */}
   <div className="left-column-layout">
-    <div className="numbers-grid-wrapper">
-      {letters.map((letter, rowIndex) => (
-        <div key={letter} className="number-column-group">
-          <div className="letter-button">{letter}</div>
-          {numberColumns[rowIndex].map((num) => (
+    
+{/* LEFT COLUMN: 1 TO 75 GRID SYSTEM */}
+<div className="numbers-grid-wrapper">
+  {letters.map((letter, rowIndex) => {
+    const letterClass = letter.toLowerCase(); // Creates 'b', 'i', 'n', 'g', or 'o'
+    
+    return (
+      <div key={letter} className="number-column-group">
+        <div className="letter-button">{letter}</div>
+        {numberColumns[rowIndex].map((num) => {
+          const isCalled = highlightedNumbers.includes(num);
+          
+          return (
             <button
               key={num}
-              className={`number-button ${highlightedNumbers.includes(num) ? "called" : ""}`}
+              className={`number-button ${isCalled ? `called ${letterClass}` : ""}`}
               disabled
             >
               {num}
             </button>
-          ))}
-        </div>
-      ))}
-    </div>
-
+          );
+        })}
+      </div>
+    );
+  })}
+</div>
     {/* CONTROL BAR MOVED DIRECTLY UNDER GRID */}
     <div className="toggle-container">
       <span className="toggle-label">AUTO SELECT</span>

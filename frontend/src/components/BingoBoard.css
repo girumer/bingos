@@ -400,47 +400,42 @@ input:checked + .toggle-slider:before { transform: translateX(24px); }
   .toggle-label { font-size: 9px; }
   .stat-button1 { padding: 4px 8px; font-size: 9px; }
 }
-/* --- COLUMN-SPECIFIC CALLED STATES (FOR MASTER GRID & CARDS) --- */
+/* --- LEFT SIDE GRID COLUMN-SPECIFIC CALLED STATES --- */
 
-/* B Column (1-15) -> Blue */
-.number-button.called.b,
-.cartela-cell.called.b {
+/* B Column (1-15) called state -> Blue */
+.number-button.called.b {
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
   color: #ffffff !important;
   border-color: #1e40af !important;
   box-shadow: 0 2px 4px rgba(29, 78, 216, 0.3);
 }
 
-/* I Column (16-30) -> Indigo */
-.number-button.called.i,
-.cartela-cell.called.i {
+/* I Column (16-30) called state -> Indigo */
+.number-button.called.i {
   background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%) !important;
   color: #ffffff !important;
   border-color: #3730a3 !important;
   box-shadow: 0 2px 4px rgba(67, 56, 202, 0.3);
 }
 
-/* N Column (31-45) -> Purple */
-.number-button.called.n,
-.cartela-cell.called.n {
+/* N Column (31-45) called state -> Purple */
+.number-button.called.n {
   background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%) !important;
   color: #ffffff !important;
   border-color: #6b21a8 !important;
   box-shadow: 0 2px 4px rgba(126, 34, 206, 0.3);
 }
 
-/* G Column (46-60) -> Green */
-.number-button.called.g,
-.cartela-cell.called.g {
+/* G Column (46-60) called state -> Green */
+.number-button.called.g {
   background: linear-gradient(135deg, #10b981 0%, #047857 100%) !important;
   color: #ffffff !important;
   border-color: #065f46 !important;
   box-shadow: 0 2px 4px rgba(4, 120, 87, 0.3);
 }
 
-/* O Column (61-75) -> Orange/Red */
-.number-button.called.o,
-.cartela-cell.called.o {
+/* O Column (61-75) called state -> Orange/Red */
+.number-button.called.o {
   background: linear-gradient(135deg, #f97316 0%, #c2410c 100%) !important;
   color: #ffffff !important;
   border-color: #9a3412 !important;
