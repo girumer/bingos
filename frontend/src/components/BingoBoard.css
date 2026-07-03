@@ -3,9 +3,9 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 5px;
+  padding: 4px;
   background-color: #dbaff8a5; 
-  gap: 5px;
+  gap: 4px;
   box-sizing: border-box;
   overflow: hidden; /* Prevent overall body scrolling */
 }
@@ -16,76 +16,76 @@
   flex: 1;
   flex-direction: row;
   overflow: hidden;
-  gap: 5px;
+  gap: 4px;
 }
 
-/* --- LEFT COLUMN PANEL FLOW --- */
+/* --- LEFT COLUMN PANEL FLOW (TIGHTENED TO 48%) --- */
 .left-column-layout {
-  flex: 0 0 54%;
+  flex: 0 0 48%; /* Reduced from 54% to yield maximum width to the right side */
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   height: 100%;
 }
 
 /* --- LEFT SIDE: FIXED 1-75 GRID SYSTEM --- */
 .numbers-grid-wrapper {
-  flex: 1; /* Captures remaining vertical space dynamically above the controls */
+  flex: 1; 
   display: flex;
   flex-direction: row; 
-  align-items: stretch; /* Stretches columns to match container height */
+  align-items: stretch; 
   justify-content: space-between;
-  padding: 8px 5px;
+  padding: 4px 2px; /* Tight padding to protect button layout area */
   background-color: #dbaff8a5; 
-  border-radius: 5px;
+  border-radius: 6px;
   box-sizing: border-box;
 }
 
 .number-column-group {
   display: flex;
   flex-direction: column; 
-  gap: 2px;
+  gap: 2px; /* Ultra-compact vertical row padding */
   align-items: center;
   flex: 1;
   height: 100%;
 }
 
 .letter-button {
-  width: 26px; 
-  height: 26px;
-  background: #000000; 
+  width: 24px; 
+  height: 24px;
+  background: #1e1b4b; /* Deep premium contrast header */
   color: #ffffff; 
   border-radius: 4px;
   display: flex; 
   align-items: center; 
   justify-content: center;
-  font-size: 13px; 
+  font-size: 12px; 
   font-weight: 900;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
   flex-shrink: 0;
 }
 
 .number-button {
-  width: 28px; 
-  flex: 1; /* Stretches row items down to scale evenly */
+  width: 24px; 
+  flex: 1; 
   max-height: 32px; 
-  background: rgba(255, 255, 255, 0.95); 
-  border: 1px solid rgba(0, 0, 0, 0.15); 
+  background: rgba(255, 255, 255, 0.98); 
+  border: 1px solid rgba(0, 0, 0, 0.12); 
   border-radius: 4px; 
   display: flex;
-  color: #1e293b; 
+  color: #0f172a; 
   align-items: center; 
   justify-content: center;
-  font-size: 12px; 
-  font-weight: bold;
+  font-size: 11px; 
+  font-weight: 700;
   opacity: 1 !important; 
 }
 
 .number-button.called { 
-  background: #2563eb; 
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: #ffffff !important; 
-  border-color: #1d4ed8;
-  box-shadow: 0 2px 5px rgba(37, 99, 235, 0.4);
+  border-color: #1e40af;
+  box-shadow: 0 2px 4px rgba(29, 78, 216, 0.3);
 }
 
 /* --- INTEGRATED CONTROLS CONTAINER UNDER GRID --- */
@@ -93,56 +93,58 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 8px;
-  background-color: rgba(0, 0, 0, 0.12); 
-  border-radius: 5px;
+  padding: 4px 6px; /* Reduced padding to save vertical space */
+  background-color: rgba(15, 23, 42, 0.15); 
+  border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
   flex-shrink: 0;
 }
 
 .toggle-label { 
-  font-size: 14px; 
-  font-weight: 500; 
-  color: #ffffff; 
+  font-size: 11px; 
+  font-weight: 800; 
+  color: #1e1b4b; 
+  letter-spacing: 0.5px;
 }
 
 /* Toggle Switch Handles */
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 24px;
-  margin: 0 10px;
+  width: 44px;
+  height: 20px;
 }
 .toggle-switch input { opacity: 0; width: 0; height: 0; }
 .toggle-slider {
   position: absolute;
   cursor: pointer;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #9ef1a54f;
-  transition: .4s;
-  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.4);
+  transition: .3s;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .toggle-slider:before {
   position: absolute;
   content: "";
-  height: 18px; width: 18px;
-  left: 3px; bottom: 3px;
-  background-color: wheat;
-  transition: .4s;
+  height: 14px; width: 14px;
+  left: 2px; bottom: 2px;
+  background-color: #ffffff;
+  transition: .3s;
   border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
-input:checked + .toggle-slider { background-color: #4CAF50; }
-input:checked + .toggle-slider:before { transform: translateX(26px); }
+input:checked + .toggle-slider { background-color: #10b981; }
+input:checked + .toggle-slider:before { transform: translateX(24px); }
 
-/* --- RIGHT SIDE: CONTAINER & SCROLL CARDS PANEL --- */
+/* --- RIGHT SIDE: CONTAINER & SCROLL CARDS PANEL (EXPANDED TO 52%) --- */
 .bottom-panels {
-  flex: 0 0 46%;
+  flex: 0 0 52%; /* Gained extra breathing space from the grid contraction */
   display: flex;
   flex-direction: column;
   background-color: #dbaff8a5; 
-  gap: 5px;
+  gap: 4px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -150,10 +152,10 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
 .fixed-control-header {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   background: rgba(0, 0, 0, 0.05);
   padding: 4px;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .last-called-container {
@@ -165,24 +167,26 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
 }
 
 .last-called-number {
-  width: 55px; height: 55px;
+  width: 50px; height: 50px;
   border-radius: 50%;
-  background: #070707; color: white;
+  background: #0f172a; color: white;
   display: flex; align-items: center; justify-content: center;
-  font-weight: bold; font-size: 14px;
+  font-weight: 800; font-size: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
 }
 
 .last-five-display { display: flex; gap: 4px; }
 .last-five-number {
-  width: 25px; height: 25px; border-radius: 50%;
+  width: 24px; height: 24px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: bold; color: white;
+  font-size: 9px; font-weight: bold; color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-.last-five-number.b { background: yellow; color: black; }
-.last-five-number.i { background: green; }
-.last-five-number.n { background: red; }
-.last-five-number.g { background: blue; }
-.last-five-number.o { background: brown; }
+.last-five-number.b { background: #eab308; color: black; }
+.last-five-number.i { background: #22c55e; }
+.last-five-number.n { background: #ef4444; }
+.last-five-number.g { background: #3b82f6; }
+.last-five-number.o { background: #a855f7; }
 
 .scrollable-cards-viewport {
   flex: 1;
@@ -190,7 +194,7 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   padding-right: 2px;
 }
 .scrollable-cards-viewport::-webkit-scrollbar { width: 4px; }
-.scrollable-cards-viewport::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 4px; }
+.scrollable-cards-viewport::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
 
 .bottom-left{
   background-color: transparent;
@@ -201,45 +205,115 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   display: flex;
   flex-direction: column; 
   align-items: center; 
-  gap: 15px;
+  gap: 12px;
   width: 100%;
-  padding: 4px 0 !important;
+  padding: 2px 0 !important;
 }
 
+/* --- PREMIUM ATTRACTIVE CARTELA DESIGN --- */
 .cartela-display {
-  width: 190px;
+  width: 210px; /* Enhanced wider geometry for stunning desktop presentation */
   height: auto;
-  border: 2px solid #a855f7; 
-  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.4); 
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  background: #ffffff;
-  padding: 6px;
+  gap: 4px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  padding: 8px;
   box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cartela-display:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.18), 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 
-.cartela-header { display: flex; gap: 2px; margin-bottom: 2px; }
+.cartela-header { 
+  display: flex; 
+  gap: 3px; 
+  margin-bottom: 2px; 
+}
 .cartela-header-cell {
-  font-size: 13px; font-weight: 900; height: 22px; display: flex; align-items: center; justify-content: center;
-  border-radius: 3px; color: white; flex: 1;
+  font-size: 14px; 
+  font-weight: 900; 
+  height: 24px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  border-radius: 4px; 
+  color: white; 
+  flex: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
 }
-.cartela-header-cell.b { background: #4a71f3; }
-.cartela-header-cell.i { background: #180381; }
-.cartela-header-cell.n { background: #650396; }
-.cartela-header-cell.g { background: #3e7c58; }
-.cartela-header-cell.o { background: #ce4b1f; }
+.cartela-header-cell.b { background: linear-gradient(180deg, #3b82f6, #1d4ed8); }
+.cartela-header-cell.i { background: linear-gradient(180deg, #6366f1, #4338ca); }
+.cartela-header-cell.n { background: linear-gradient(180deg, #a855f7, #7e22ce); }
+.cartela-header-cell.g { background: linear-gradient(180deg, #10b981, #047857); }
+.cartela-header-cell.o { background: linear-gradient(180deg, #f97316, #c2410c); }
 
-.cartela-rows-container { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-.cartela-row { flex: 1; display: flex; gap: 2px; }
+.cartela-rows-container { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.cartela-row { flex: 1; display: flex; gap: 3px; }
+
 .cartela-cell { 
-  flex: 1; min-width: 22px; height: 30px; display: flex; align-items: center; justify-content: center; 
-  font-weight: 800; font-size: 13px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; box-sizing: border-box; 
+  flex: 1; 
+  min-width: 26px; 
+  height: 28px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-weight: 800; 
+  font-size: 13px; 
+  background: #ffffff; 
+  border: 1px solid #e2e8f0; 
+  border-radius: 6px; 
+  box-sizing: border-box; 
   color: #334155;
+  box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.cartela-cell.clicked { background: #2ecc71; color: white; border-color: #27ae60; }
-.cartela-index { text-align: center; font-size: 11px; font-weight: 800; color: #64748b; margin-top: 4px; text-transform: uppercase; }
-.bingo-button { width: 100%; height: 32px; padding: 0; font-size: 13px; font-weight: bold; background: linear-gradient(135deg, #f67d05 0%, #d85400 100%); color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 4px; }
+.cartela-cell:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.cartela-cell.clicked { 
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+  color: white; 
+  border-color: #047857; 
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2), inset 0 1px 2px rgba(255,255,255,0.2);
+}
+
+.cartela-index { 
+  text-align: center; 
+  font-size: 10px; 
+  font-weight: 800; 
+  color: #64748b; 
+  margin-top: 5px; 
+  text-transform: uppercase; 
+  letter-spacing: 0.5px;
+}
+.bingo-button { 
+  width: 100%; 
+  height: 30px; 
+  padding: 0; 
+  font-size: 12px; 
+  font-weight: 800; 
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); 
+  color: white; 
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  margin-top: 5px; 
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s ease;
+}
+.bingo-button:hover {
+  opacity: 0.95;
+}
 
 /* --- TOP GLOBAL DASHBOARD PANEL --- */
 .top-stats {
@@ -248,30 +322,33 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
   justify-content: space-around;
   align-items: center;
   gap: 5px;
-  padding: 5px;
+  padding: 4px;
   background: #ad99f7db;
   color: black;
   border-radius: 5px;
   box-sizing: border-box;
 }
 .stat-button {
-  padding: 10px;
+  padding: 8px;
   background: #ad99f7db;
   border: 1px solid #efa8a8;
-  border-radius: 8px;
+  border-radius: 6px;
   color: rgb(39, 35, 35);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   text-align: center;
-  min-width: 90px;
+  min-width: 80px;
 }
 .stat-button1 {
-  background: #f74904de;
+  background: #e11d48;
   color: rgb(255, 254, 254);
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(225, 29, 72, 0.2);
 }
 
 /* --- GAME WINNER POPUPS --- */
@@ -301,22 +378,25 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
 .winner-cartelas-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; color: #01060b; }
 .winner-cartela { min-width: 120px; color: white; flex: 1 0 auto; }
 
-/* --- MOBILE SPECIFICS (Tecno Spark / Smartphones) --- */
+/* --- MOBILE SPECIFICS (Optimized for perfect viewport splitting) --- */
 @media (max-width: 768px) {
   .left-column-layout {
-    flex: 0 0 54%;
+    flex: 0 0 48%;
   }
   .numbers-grid-wrapper {
-    padding: 4px 2px;
+    padding: 2px 1px;
   }
-  .number-button { width: 22px; font-size: 10px; max-height: 24px; }
-  .letter-button { width: 22px; height: 22px; font-size: 11px; }
+  .number-button { width: 20px; font-size: 9px; max-height: 24px; border-radius: 3px; }
+  .letter-button { width: 20px; height: 20px; font-size: 10px; border-radius: 3px; }
 
   .bottom-panels {
-    flex: 0 0 46%;
+    flex: 0 0 52%;
   }
-  .cartela-display { width: 100%; }
-  .cartela-cell { height: 26px; font-size: 11px; }
-  .last-called-number { width: 44px; height: 44px; font-size: 11px; }
-  .last-five-number { width: 20px; height: 20px; font-size: 9px; }
+  .cartela-display { width: 100%; padding: 4px; border-radius: 8px; }
+  .cartela-cell { height: 24px; font-size: 10px; border-radius: 4px; }
+  .cartela-header-cell { height: 20px; font-size: 11px; }
+  .last-called-number { width: 38px; height: 38px; font-size: 12px; }
+  .last-five-number { width: 18px; height: 18px; font-size: 8px; }
+  .toggle-label { font-size: 9px; }
+  .stat-button1 { padding: 4px 8px; font-size: 9px; }
 }
