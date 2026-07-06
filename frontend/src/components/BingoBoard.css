@@ -76,26 +76,28 @@ html, body {
   flex-direction: row; 
   align-items: stretch; /* Stretches inner columns vertically */
   justify-content: space-between;
-  padding: 4px 2px;
+  padding: 4px;
   background-color: #dbaff8a5; /* Matched exactly to container wrapper background */
   border-radius: 6px;
   box-sizing: border-box;
+  gap: 2px;
 }
 
 .number-column-group {
   display: flex;
   flex-direction: column; 
-  gap: 1px; /* Micro gap to save absolute screen height */
+  gap: 2px; /* Uniform separation between items */
   align-items: center;
   flex: 1;
   height: 100%;
+  justify-content: space-between;
 }
 
 /* Column Header Letters */
 .letter-button {
   width: 100%;
-  max-width: 26px;
-  height: 24px;
+  max-width: 32px;
+  height: 26px;
   background: #1e1b4b; 
   color: #ffffff; 
   border-radius: 4px;
@@ -111,9 +113,9 @@ html, body {
 /* Master Grid Numbers Individual Styles */
 .number-button {
   width: 100%;
-  max-width: 26px;
-  flex: 1; 
-  max-height: 28px; 
+  max-width: 32px;
+  flex: 1; /* Automatically scales up/down to seamlessly absorb workspace height */
+  min-height: 0; /* Prevents text bounds from ignoring container restrictions */
   background: rgba(255, 255, 255, 0.98); 
   border: 1px solid rgba(0, 0, 0, 0.12); 
   border-radius: 4px; 
@@ -397,6 +399,12 @@ input:checked + .toggle-slider:before { transform: translateX(20px); }
   box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
 }
 
+/* Highlights auto-selected matched numbers on player cards */
+.cartela-cell.highlighted { 
+  background-color: rgb(92, 134, 102); 
+  color: #ffffff; 
+}
+
 .cartela-index { 
   text-align: center; 
   font-size: 9px; 
@@ -439,7 +447,7 @@ input:checked + .toggle-slider:before { transform: translateX(20px); }
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   max-width: 90%;
 }
-.cartela-cell.highlighted { background-color: rgb(92, 134, 102); color: rgb(19, 14, 14); }
+
 .winner-highlight {
   background-color: rgb(15, 139, 98) !important;
   border: 3px solid rgb(20, 12, 17) !important;
@@ -447,7 +455,7 @@ input:checked + .toggle-slider:before { transform: translateX(20px); }
   font-weight: bold !important;
   transform: scale(1.1);
 }
-.winner-popup h2 { margin-bottom: 10px; }
+.winner-popup h2 { margin-bottom: 10px; color: #01060b; }
 .winner-cartelas-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; color: #01060b; }
 .winner-cartela { min-width: 120px; color: white; flex: 1 0 auto; }
 
@@ -458,8 +466,9 @@ input:checked + .toggle-slider:before { transform: translateX(20px); }
   .left-column-layout { flex: 0 0 45%; }
   .bottom-panels { flex: 0 0 55%; }
   
-  .number-button { max-height: 22px; font-size: 10px; border-radius: 3px; }
-  .letter-button { height: 20px; font-size: 10px; border-radius: 3px; }
+  /* Buttons expand to context boundaries organically without max-height limits */
+  .number-button { font-size: 10px; border-radius: 3px; max-width: 28px; }
+  .letter-button { height: 20px; font-size: 10px; border-radius: 3px; max-width: 28px; }
   
   .last-called-number { width: 52px; height: 52px; font-size: 17px; }
   .last-five-number { width: 25px; height: 25px; font-size: 10px; }
