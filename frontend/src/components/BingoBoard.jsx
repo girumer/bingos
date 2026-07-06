@@ -304,35 +304,34 @@ function BingoBoard() {
     <div className="main-content-layout">
   
   {/* LEFT COLUMN: 1 TO 75 GRID SYSTEM + UTILITY PANEL */}
-  <div className="left-column-layout">
-    
-{/* LEFT COLUMN: 1 TO 75 GRID SYSTEM */}
-<div className="numbers-grid-wrapper">
-  {letters.map((letter, rowIndex) => {
-    const letterClass = letter.toLowerCase(); // Creates 'b', 'i', 'n', 'g', or 'o'
-    
-    return (
-      <div key={letter} className="number-column-group">
-        <div className="letter-button">{letter}</div>
-        {numberColumns[rowIndex].map((num) => {
-          const isCalled = highlightedNumbers.includes(num);
-          
-          return (
-            <button
-              key={num}
-              className={`number-button ${isCalled ? `called ${letterClass}` : ""}`}
-              disabled
-            >
-              {num}
-            </button>
-          );
-        })}
-      </div>
-    );
-  })}
-</div>
-    {/* CONTROL BAR MOVED DIRECTLY UNDER GRID */}
-    <div className="toggle-container">
+  {/* LEFT COLUMN: 1 TO 75 GRID SYSTEM + VERTICAL UTILITY PANEL */}
+<div className="left-column-layout">
+  <div className="numbers-grid-wrapper">
+    {letters.map((letter, rowIndex) => {
+      const letterClass = letter.toLowerCase();
+      return (
+        <div key={letter} className="number-column-group">
+          <div className="letter-button">{letter}</div>
+          {numberColumns[rowIndex].map((num) => {
+            const isCalled = highlightedNumbers.includes(num);
+            return (
+              <button
+                key={num}
+                className={`number-button ${isCalled ? `called ${letterClass}` : ""}`}
+                disabled
+              >
+                {num}
+              </button>
+            );
+          })}
+        </div>
+      );
+    })}
+  </div>
+
+  {/* VERTICALLY ALIGNED CONTROLS CONTAINER */}
+  <div className="toggle-container-vertical">
+    <div className="toggle-row-item">
       <span className="toggle-label">AUTO SELECT</span>
       <label className="toggle-switch">
         <input
@@ -342,9 +341,12 @@ function BingoBoard() {
         />
         <span className="toggle-slider"></span>
       </label>
-      <div className="stat-button1" onClick={refreshpg}>REFRESH</div>
     </div>
+    <button className="refresh-action-button" onClick={refreshpg}>
+      REFRESH GAME
+    </button>
   </div>
+</div>
 
   {/* RIGHT COLUMN: REARRANGED BALL BALL DISPLAY AND SCROLLING CARTELAS */}
   <div className="bottom-panels">

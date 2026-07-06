@@ -1,42 +1,83 @@
-/* --- MAIN WRAPPER & CONTAINER LAYOUT --- */
+/* ==========================================================================
+   1. GLOBAL SYSTEM RESETS & VIEWPORT LOCKING
+   ========================================================================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Fullscreen app envelope */
 .bingo-board-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100vw;
   padding: 4px;
   background-color: #dbaff8a5; 
   gap: 4px;
   box-sizing: border-box;
-  overflow: hidden; /* Prevent overall body scrolling */
+  overflow: hidden;
 }
 
-/* --- MAIN WORKSPACE SPLIT --- */
+/* ==========================================================================
+   2. TOP PANEL HEADER TRACKING
+   ========================================================================== */
+.top-stats {
+  flex: 0 0 8%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #ad99f7db;
+  border-radius: 6px;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.stat-button {
+  padding: 4px 8px;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* ==========================================================================
+   3. WORKSPACE SPLIT ENGINE
+   ========================================================================== */
 .main-content-layout {
   display: flex;
   flex: 1;
   flex-direction: row;
   overflow: hidden;
   gap: 4px;
+  height: calc(100% - 8% - 4px); /* Scales dynamic space factoring top stats header */
 }
 
-/* --- LEFT COLUMN PANEL FLOW (TIGHTENED TO 48%) --- */
+/* ==========================================================================
+   4. LEFT COLUMN: MASTER 1-75 GRID & CONTROLS
+   ========================================================================== */
 .left-column-layout {
-  flex: 0 0 48%; /* Reduced from 54% to yield maximum width to the right side */
+  flex: 0 0 46%; /* Locks footprint to allow maximum width for cards on the right */
   display: flex;
   flex-direction: column;
   gap: 4px;
   height: 100%;
+  overflow: hidden;
 }
 
-/* --- LEFT SIDE: FIXED 1-75 GRID SYSTEM --- */
+/* Master Grid Grid Backdrop */
 .numbers-grid-wrapper {
   flex: 1; 
   display: flex;
   flex-direction: row; 
-  align-items: stretch; 
+  align-items: stretch; /* Stretches inner columns vertically */
   justify-content: space-between;
-  padding: 4px 2px; /* Tight padding to protect button layout area */
-  background-color: #dbaff8a5; 
+  padding: 4px 2px;
+  background-color: #dbaff8a5; /* Matched exactly to container wrapper background */
   border-radius: 6px;
   box-sizing: border-box;
 }
@@ -44,31 +85,35 @@
 .number-column-group {
   display: flex;
   flex-direction: column; 
-  gap: 2px; /* Ultra-compact vertical row padding */
+  gap: 1px; /* Micro gap to save absolute screen height */
   align-items: center;
   flex: 1;
   height: 100%;
 }
 
+/* Column Header Letters */
 .letter-button {
-  width: 24px; 
+  width: 100%;
+  max-width: 26px;
   height: 24px;
-  background: #1e1b4b; /* Deep premium contrast header */
+  background: #1e1b4b; 
   color: #ffffff; 
   border-radius: 4px;
   display: flex; 
   align-items: center; 
   justify-content: center;
-  font-size: 12px; 
+  font-size: 11px; 
   font-weight: 900;
-  margin-bottom: 1px;
   flex-shrink: 0;
+  box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* Master Grid Numbers Individual Styles */
 .number-button {
-  width: 24px; 
+  width: 100%;
+  max-width: 26px;
   flex: 1; 
-  max-height: 32px; 
+  max-height: 28px; 
   background: rgba(255, 255, 255, 0.98); 
   border: 1px solid rgba(0, 0, 0, 0.12); 
   border-radius: 4px; 
@@ -78,41 +123,67 @@
   justify-content: center;
   font-size: 11px; 
   font-weight: 700;
-  opacity: 1 !important; 
 }
 
-.number-button.called { 
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  color: #ffffff !important; 
-  border-color: #1e40af;
-  box-shadow: 0 2px 4px rgba(29, 78, 216, 0.3);
+/* --- COLUMN MATCHED DYNAMIC MASTER CHIP GRADIENTS --- */
+.number-button.called.b {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  color: #ffffff !important; border-color: #1e40af !important;
+  box-shadow: 0 1px 3px rgba(29, 78, 216, 0.4);
+}
+.number-button.called.i {
+  background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%) !important;
+  color: #ffffff !important; border-color: #3730a3 !important;
+  box-shadow: 0 1px 3px rgba(67, 56, 202, 0.4);
+}
+.number-button.called.n {
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%) !important;
+  color: #ffffff !important; border-color: #6b21a8 !important;
+  box-shadow: 0 1px 3px rgba(126, 34, 206, 0.4);
+}
+.number-button.called.g {
+  background: linear-gradient(135deg, #10b981 0%, #047857 100%) !important;
+  color: #ffffff !important; border-color: #065f46 !important;
+  box-shadow: 0 1px 3px rgba(4, 120, 87, 0.4);
+}
+.number-button.called.o {
+  background: linear-gradient(135deg, #f97316 0%, #c2410c 100%) !important;
+  color: #ffffff !important; border-color: #9a3412 !important;
+  box-shadow: 0 1px 3px rgba(194, 65, 12, 0.4);
 }
 
-/* --- INTEGRATED CONTROLS CONTAINER UNDER GRID --- */
-.left-column-layout .toggle-container {
+/* --- VERTICALLY STACKED UTILITY CONTROL FOOTER --- */
+.toggle-container-vertical {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 4px 6px; /* Reduced padding to save vertical space */
-  background-color: rgba(15, 23, 42, 0.15); 
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+  background-color: rgba(15, 23, 42, 0.16); 
   border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
   flex-shrink: 0;
 }
 
+.toggle-row-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .toggle-label { 
   font-size: 11px; 
   font-weight: 800; 
   color: #1e1b4b; 
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
-/* Toggle Switch Handles */
+/* Custom Toggle Hardware Styles */
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 44px;
+  width: 40px;
   height: 20px;
 }
 .toggle-switch input { opacity: 0; width: 0; height: 0; }
@@ -120,10 +191,10 @@
   position: absolute;
   cursor: pointer;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.45);
   transition: .3s;
   border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0,0,0,0.05);
 }
 .toggle-slider:before {
   position: absolute;
@@ -133,14 +204,36 @@
   background-color: #ffffff;
   transition: .3s;
   border-radius: 50%;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 input:checked + .toggle-slider { background-color: #10b981; }
-input:checked + .toggle-slider:before { transform: translateX(24px); }
+input:checked + .toggle-slider:before { transform: translateX(20px); }
 
-/* --- RIGHT SIDE: CONTAINER & SCROLL CARDS PANEL (EXPANDED TO 52%) --- */
+/* Vertically stacked full-width refresh action button */
+.refresh-action-button {
+  width: 100%;
+  padding: 6px 0;
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(185, 28, 28, 0.2);
+  text-align: center;
+  letter-spacing: 0.5px;
+  transition: transform 0.1s ease;
+}
+.refresh-action-button:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   5. RIGHT COLUMN: TRACKING DISPLAYS & SCROLLING CARDS
+   ========================================================================== */
 .bottom-panels {
-  flex: 0 0 52%; /* Gained extra breathing space from the grid contraction */
+  flex: 0 0 54%; /* Takes up wider space allocation for clear board scrolling */
   display: flex;
   flex-direction: column;
   background-color: #dbaff8a5; 
@@ -150,53 +243,71 @@ input:checked + .toggle-slider:before { transform: translateX(24px); }
 }
 
 .fixed-control-header {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
   background: rgba(0, 0, 0, 0.05);
-  padding: 4px;
+  padding: 6px;
   border-radius: 6px;
+  flex-shrink: 0;
 }
 
+/* --- ENLARGED TRACKING HEADERS --- */
 .last-called-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   width: 100%;
 }
 
 .last-called-number {
-  width: 50px; height: 50px;
+  width: 65px; /* Massive clear layout sphere */
+  height: 65px;
   border-radius: 50%;
-  background: #0f172a; color: white;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 15px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  background: #0f172a; 
+  color: white;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font-weight: 900; 
+  font-size: 20px; /* Highly legible rendering font size */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.last-five-display { display: flex; gap: 4px; }
+.last-five-display { 
+  display: flex; 
+  gap: 5px; 
+  justify-content: center;
+  width: 100%;
+}
+
 .last-five-number {
-  width: 24px; height: 24px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px; font-weight: bold; color: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  width: 32px; /* Enlarged tracking secondary spheres */
+  height: 32px; 
+  border-radius: 50%;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  font-size: 11px; 
+  font-weight: 800; 
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
-.last-five-number.b { background: #eab308; color: black; }
-.last-five-number.i { background: #22c55e; }
-.last-five-number.n { background: #ef4444; }
-.last-five-number.g { background: #3b82f6; }
-.last-five-number.o { background: #a855f7; }
+.last-five-number.b { background: #3b82f6; }
+.last-five-number.i { background: #6366f1; }
+.last-five-number.n { background: #a855f7; }
+.last-five-number.g { background: #10b981; }
+.last-five-number.o { background: #f97316; }
 
+/* --- ENGINE FOR SCROLLING PANEL HOUSING --- */
 .scrollable-cards-viewport {
   flex: 1;
   overflow-y: auto;
-  padding-right: 2px;
+  padding-right: 1px;
 }
-.scrollable-cards-viewport::-webkit-scrollbar { width: 4px; }
+.scrollable-cards-viewport::-webkit-scrollbar { width: 3px; }
 .scrollable-cards-viewport::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
 
-.bottom-left{
+.bottom-left {
   background-color: transparent;
   width: 100%;
 }
@@ -205,48 +316,46 @@ input:checked + .toggle-slider:before { transform: translateX(24px); }
   display: flex;
   flex-direction: column; 
   align-items: center; 
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  padding: 2px 0 !important;
 }
 
-/* --- PREMIUM ATTRACTIVE CARTELA DESIGN --- */
+/* ==========================================================================
+   6. PREMIUM ATTRACTIVE CARTELA LOOK
+   ========================================================================== */
 .cartela-display {
-  width: 210px; /* Enhanced wider geometry for stunning desktop presentation */
-  height: auto;
-  border: 1px solid rgba(255, 255, 255, 0.4); 
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  width: 100%;
+  max-width: 205px; /* Keeps the cards perfectly proportionate and beautiful */
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  padding: 6px;
   box-sizing: border-box;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.1), 0 1px 2px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
 }
 .cartela-display:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.18), 0 2px 4px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
 }
 
 .cartela-header { 
   display: flex; 
-  gap: 3px; 
-  margin-bottom: 2px; 
+  gap: 2px; 
+  margin-bottom: 3px; 
 }
+
 .cartela-header-cell {
-  font-size: 14px; 
+  font-size: 12px; 
   font-weight: 900; 
-  height: 24px; 
+  height: 20px; 
   display: flex; 
   align-items: center; 
   justify-content: center;
-  border-radius: 4px; 
+  border-radius: 3px; 
   color: white; 
   flex: 1;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+  box-shadow: inset 0 -1.5px 0 rgba(0,0,0,0.1);
 }
 .cartela-header-cell.b { background: linear-gradient(180deg, #3b82f6, #1d4ed8); }
 .cartela-header-cell.i { background: linear-gradient(180deg, #6366f1, #4338ca); }
@@ -254,104 +363,68 @@ input:checked + .toggle-slider:before { transform: translateX(24px); }
 .cartela-header-cell.g { background: linear-gradient(180deg, #10b981, #047857); }
 .cartela-header-cell.o { background: linear-gradient(180deg, #f97316, #c2410c); }
 
-.cartela-rows-container { flex: 1; display: flex; flex-direction: column; gap: 3px; }
-.cartela-row { flex: 1; display: flex; gap: 3px; }
+.cartela-rows-container { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 2px; 
+}
+.cartela-row { 
+  display: flex; 
+  gap: 2px; 
+}
 
 .cartela-cell { 
   flex: 1; 
-  min-width: 26px; 
-  height: 28px; 
+  height: 24px; 
   display: flex; 
   align-items: center; 
   justify-content: center; 
   font-weight: 800; 
-  font-size: 13px; 
+  font-size: 12px; 
   background: #ffffff; 
   border: 1px solid #e2e8f0; 
-  border-radius: 6px; 
+  border-radius: 4px; 
   box-sizing: border-box; 
   color: #334155;
-  box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.04);
-  cursor: pointer;
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.1s ease;
 }
-.cartela-cell:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-}
-.cartela-cell.clicked { 
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
-  color: white; 
-  border-color: #047857; 
-  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2), inset 0 1px 2px rgba(255,255,255,0.2);
+
+/* Dynamic styling for when a user selects a cell value manually */
+.cartela-cell.clicked {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white !important; 
+  border-color: #047857;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
 }
 
 .cartela-index { 
   text-align: center; 
-  font-size: 10px; 
+  font-size: 9px; 
   font-weight: 800; 
   color: #64748b; 
-  margin-top: 5px; 
+  margin-top: 4px; 
   text-transform: uppercase; 
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
+
 .bingo-button { 
   width: 100%; 
-  height: 30px; 
-  padding: 0; 
-  font-size: 12px; 
+  height: 26px; 
+  font-size: 11px; 
   font-weight: 800; 
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); 
   color: white; 
   border: none; 
-  border-radius: 6px; 
+  border-radius: 5px; 
   cursor: pointer; 
-  margin-top: 5px; 
-  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+  margin-top: 4px; 
+  box-shadow: 0 1.5px 3px rgba(220, 38, 38, 0.25);
   letter-spacing: 0.5px;
-  transition: opacity 0.2s ease;
-}
-.bingo-button:hover {
-  opacity: 0.95;
 }
 
-/* --- TOP GLOBAL DASHBOARD PANEL --- */
-.top-stats {
-  flex: 0 0 10%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 5px;
-  padding: 4px;
-  background: #ad99f7db;
-  color: black;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-.stat-button {
-  padding: 8px;
-  background: #ad99f7db;
-  border: 1px solid #efa8a8;
-  border-radius: 6px;
-  color: rgb(39, 35, 35);
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  min-width: 80px;
-}
-.stat-button1 {
-  background: #e11d48;
-  color: rgb(255, 254, 254);
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 4px rgba(225, 29, 72, 0.2);
-}
-
-/* --- GAME WINNER POPUPS --- */
+/* ==========================================================================
+   7. GAME WINNER MODALS
+   ========================================================================== */
 .winner-popup {
   position: fixed;
   top: 10%;
@@ -378,66 +451,22 @@ input:checked + .toggle-slider:before { transform: translateX(24px); }
 .winner-cartelas-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; color: #01060b; }
 .winner-cartela { min-width: 120px; color: white; flex: 1 0 auto; }
 
-/* --- MOBILE SPECIFICS (Optimized for perfect viewport splitting) --- */
-@media (max-width: 768px) {
-  .left-column-layout {
-    flex: 0 0 48%;
-  }
-  .numbers-grid-wrapper {
-    padding: 2px 1px;
-  }
-  .number-button { width: 20px; font-size: 9px; max-height: 24px; border-radius: 3px; }
-  .letter-button { width: 20px; height: 20px; font-size: 10px; border-radius: 3px; }
-
-  .bottom-panels {
-    flex: 0 0 52%;
-  }
-  .cartela-display { width: 100%; padding: 4px; border-radius: 8px; }
-  .cartela-cell { height: 24px; font-size: 10px; border-radius: 4px; }
-  .cartela-header-cell { height: 20px; font-size: 11px; }
-  .last-called-number { width: 38px; height: 38px; font-size: 12px; }
-  .last-five-number { width: 18px; height: 18px; font-size: 8px; }
+/* ==========================================================================
+   8. SMARTPHONE MEDIA ADAPTATION (Perfect responsive fit)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .left-column-layout { flex: 0 0 45%; }
+  .bottom-panels { flex: 0 0 55%; }
+  
+  .number-button { max-height: 22px; font-size: 10px; border-radius: 3px; }
+  .letter-button { height: 20px; font-size: 10px; border-radius: 3px; }
+  
+  .last-called-number { width: 52px; height: 52px; font-size: 17px; }
+  .last-five-number { width: 25px; height: 25px; font-size: 10px; }
+  
+  .cartela-display { max-width: 100%; padding: 4px; border-radius: 8px; }
+  .cartela-cell { height: 22px; font-size: 10px; border-radius: 3px; }
+  .cartela-header-cell { height: 18px; font-size: 10px; }
   .toggle-label { font-size: 9px; }
-  .stat-button1 { padding: 4px 8px; font-size: 9px; }
-}
-/* --- LEFT SIDE GRID COLUMN-SPECIFIC CALLED STATES --- */
-
-/* B Column (1-15) called state -> Blue */
-.number-button.called.b {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
-  color: #ffffff !important;
-  border-color: #1e40af !important;
-  box-shadow: 0 2px 4px rgba(29, 78, 216, 0.3);
-}
-
-/* I Column (16-30) called state -> Indigo */
-.number-button.called.i {
-  background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%) !important;
-  color: #ffffff !important;
-  border-color: #3730a3 !important;
-  box-shadow: 0 2px 4px rgba(67, 56, 202, 0.3);
-}
-
-/* N Column (31-45) called state -> Purple */
-.number-button.called.n {
-  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%) !important;
-  color: #ffffff !important;
-  border-color: #6b21a8 !important;
-  box-shadow: 0 2px 4px rgba(126, 34, 206, 0.3);
-}
-
-/* G Column (46-60) called state -> Green */
-.number-button.called.g {
-  background: linear-gradient(135deg, #10b981 0%, #047857 100%) !important;
-  color: #ffffff !important;
-  border-color: #065f46 !important;
-  box-shadow: 0 2px 4px rgba(4, 120, 87, 0.3);
-}
-
-/* O Column (61-75) called state -> Orange/Red */
-.number-button.called.o {
-  background: linear-gradient(135deg, #f97316 0%, #c2410c 100%) !important;
-  color: #ffffff !important;
-  border-color: #9a3412 !important;
-  box-shadow: 0 2px 4px rgba(194, 65, 12, 0.3);
+  .refresh-action-button { padding: 4px 0; font-size: 10px; }
 }
